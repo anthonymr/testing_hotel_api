@@ -4,9 +4,18 @@ const baseURL = 'http://localhost:3000/api/v1/';
 const loginEndpoint = 'authentication';
 const roomsEndpoint = 'rooms';
 const usersEndpoint = 'users';
+const hotelsEndpoint = 'hotels';
 
 async function login(username, password) {
   return await axios.post(baseURL + loginEndpoint, {username, password});
+}
+
+async function logout(token) {
+  return await axios.delete(baseURL + loginEndpoint, {
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  });
 }
 
 async function getAllRooms(token) {
@@ -65,6 +74,14 @@ async function changeUserPassword(token, password) {
   });
 }
 
+async function getAllHotels(token) {
+  return await axios.get(`${baseURL}${hotelsEndpoint}`, {
+    headers: {
+      Authorization: 'Bearer ' + token,
+    }
+  });
+}
+
 // Login
 const { data: { token } } = await login('antmartin', 'newpassword2')
 
@@ -85,3 +102,9 @@ const { data: { token } } = await login('antmartin', 'newpassword2')
 
 // Change user password
 //const { data: user } = await changeUserPassword(token, 'newpassword2')
+
+// Get all hotels
+//const { data: hotels } = await getAllHotels(token)
+
+// Logout
+const response = await logout(token)
