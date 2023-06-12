@@ -3,6 +3,7 @@ import axios from 'axios';
 const baseURL = 'http://localhost:3000/api/v1/';
 const loginEndpoint = 'authentication';
 const roomsEndpoint = 'rooms';
+const usersEndpoint = 'users';
 
 async function login(username, password) {
   return await axios.post(baseURL + loginEndpoint, {username, password});
@@ -48,8 +49,24 @@ async function deleteRoom(token, id) {
   });
 }
 
+async function getCurrentUserInfo(token) {
+  return await axios.get(`${baseURL}${loginEndpoint}`, {
+    headers: {
+      Authorization: 'Bearer ' + token,
+    }
+  });
+}
+
+async function changeUserPassword(token, password) {
+  return await axios.patch(`${baseURL}${usersEndpoint}`, { password }, {
+    headers: {
+      Authorization: 'Bearer ' + token,
+    }
+  });
+}
+
 // Login
-const { data: { token } } = await login('antmartin', 'password')
+const { data: { token } } = await login('antmartin', 'newpassword2')
 
 // Geat all rooms
 // const { data: rooms } = await getAllRooms(token)
@@ -62,3 +79,9 @@ const { data: { token } } = await login('antmartin', 'password')
 
 // Delete room
 // const response = await deleteRoom(token, 6)
+
+// Get current user info
+//const { data: user } = await getCurrentUserInfo(token)
+
+// Change user password
+//const { data: user } = await changeUserPassword(token, 'newpassword2')
