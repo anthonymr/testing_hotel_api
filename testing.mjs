@@ -5,6 +5,7 @@ const loginEndpoint = 'authentication';
 const roomsEndpoint = 'rooms';
 const usersEndpoint = 'users';
 const hotelsEndpoint = 'hotels';
+const reservationsEndpoint = 'reservations';
 
 async function login(username, password) {
   return await axios.post(baseURL + loginEndpoint, {username, password});
@@ -82,6 +83,48 @@ async function getAllHotels(token) {
   });
 }
 
+async function createReservation(token, userId, roomId, hotelId, startDate, endDate) {
+  return await axios.post(
+    `${baseURL}${reservationsEndpoint}`,
+    {
+      user_id: userId,
+      room_id: roomId,
+      hotel_id: hotelId,
+      start_date: startDate,
+      end_date: endDate,
+    }, 
+    {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      }
+    }
+  );
+}
+
+async function getAllReservations(token) {
+  return await axios.get(`${baseURL}${reservationsEndpoint}`, {
+    headers: {
+      Authorization: 'Bearer ' + token,
+    }
+  });
+}
+
+async function getReservation(token, id) {
+  return await axios.get(`${baseURL}${reservationsEndpoint}/${id}`, {
+    headers: {
+      Authorization: 'Bearer ' + token,
+    }
+  });
+}
+
+async function deleteReservation(token, id) {
+  return await axios.delete(`${baseURL}${reservationsEndpoint}/${id}`, {
+    headers: {
+      Authorization: 'Bearer ' + token,
+    }
+  });
+}
+
 // Login
 const { data: { token } } = await login('antmartin', 'newpassword2')
 
@@ -98,13 +141,25 @@ const { data: { token } } = await login('antmartin', 'newpassword2')
 // const response = await deleteRoom(token, 6)
 
 // Get current user info
-//const { data: user } = await getCurrentUserInfo(token)
+// const { data: user } = await getCurrentUserInfo(token)
 
 // Change user password
 //const { data: user } = await changeUserPassword(token, 'newpassword2')
 
 // Get all hotels
-//const { data: hotels } = await getAllHotels(token)
+// const { data: hotels } = await getAllHotels(token)
+
+// Create reservation
+// const { data: reservation } = await createReservation(token, 1, 7, 1, '2021-01-01', '2021-01-02')
+
+// Get all reservations
+// const { data: reservations } = await getAllReservations(token)
+
+// Get one reservation
+//const { data: reservation } = await getReservation(token, 1)
+
+// Delete reservation
+// const { data: reservation } = await deleteReservation(token, 1)
 
 // Logout
-const response = await logout(token)
+await logout(token)
