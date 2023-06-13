@@ -129,37 +129,57 @@ async function deleteReservation(token, id) {
 const { data: { token } } = await login('antmartin', 'newpassword2')
 
 // Geat all rooms
-// const { data: rooms } = await getAllRooms(token)
+const { data: rooms } = await getAllRooms(token)
+console.log(`GET ${baseURL}${roomsEndpoint}:`)
+console.log(rooms)
 
 // Get room by id
-// const { data: room } = await getRoom(token, 1)
+const { data: room } = await getRoom(token, 7)
+console.log(`GET ${baseURL}${roomsEndpoint}/7:`)
+console.log(room)
 
 // Create room
-// const response = await createRoom(token, 'Room 2', 'Room 2 description', 100, 50, 15, 5)
+// const { data: newRoom } = await createRoom(token, 'Room 2', 'Room 2 description', 100, 50, 15, 5)
+// console.log(newRoom)
 
 // Delete room
-// const response = await deleteRoom(token, 6)
+// const { data: deletedRoom } = await deleteRoom(token, newRoom.id)
+// console.log(deletedRoom)
 
 // Get current user info
-// const { data: user } = await getCurrentUserInfo(token)
+const { data: user } = await getCurrentUserInfo(token)
+console.log(`GET ${baseURL}${loginEndpoint}:`)
+console.log(user)
 
 // Change user password
-//const { data: user } = await changeUserPassword(token, 'newpassword2')
+const { data: newUser } = await changeUserPassword(token, 'newpassword2')
+console.log(`PATCH ${baseURL}${usersEndpoint}:`)
+console.log(newUser)
 
 // Get all hotels
-// const { data: hotels } = await getAllHotels(token)
+const { data: hotels } = await getAllHotels(token)
+console.log(`GET ${baseURL}${hotelsEndpoint}:`)
+console.log(hotels)
 
 // Create reservation
-// const { data: reservation } = await createReservation(token, 1, 7, 1, '2021-01-01', '2021-01-02')
+const { data: newReservation } = await createReservation(token, 1, 7, 1, '2021-01-01', '2021-01-02')
+console.log(`POST ${baseURL}${reservationsEndpoint}:`)
+console.log(newReservation)
 
 // Get all reservations
-// const { data: reservations } = await getAllReservations(token)
+const { data: reservations } = await getAllReservations(token)
+console.log(`GET ${baseURL}${reservationsEndpoint}:`)
+console.log(reservations)
 
 // Get one reservation
-//const { data: reservation } = await getReservation(token, 1)
+const { data: reservation } = await getReservation(token, newReservation.id)
+console.log(`GET ${baseURL}${reservationsEndpoint}/${newReservation.id}:`)
+console.log(reservation)
 
 // Delete reservation
-// const { data: reservation } = await deleteReservation(token, 1)
+const { data: deletedReservation } = await deleteReservation(token, reservation.id)
+console.log(`DELETE ${baseURL}${reservationsEndpoint}/${reservation.id}:`)
+console.log(deletedReservation)
 
 // Logout
 await logout(token)
