@@ -1,10 +1,10 @@
 async function fileToBase64(file) {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = (error) => reject(error)
+  })
 }
 
 async function testAPI() {
@@ -63,7 +63,5 @@ async function testAPI() {
 
   // Logout
   const logotResult = await AuthenticationService.logout(token)
-  if (logotResult.status === 200) {
-    console.log('Logout successful')
-  }
+  if (logotResult.status === 200) console.log('Logout successful')
 }
