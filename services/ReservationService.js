@@ -1,9 +1,8 @@
 const reservationsResource = 'reservations';
 
 const ReservationsService = {
-  create(token, user_id, room_id, hotel_id, start_date, end_date) {
+  create(token, room_id, hotel_id, start_date, end_date) {
     return Service.post(reservationsResource, {
-      user_id,
       hotel_id,
       room_id,
       start_date,
